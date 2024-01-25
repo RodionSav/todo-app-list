@@ -14,4 +14,4 @@ This is my online Todo App project that allows users to add, edit, toggle, and d
 - Classnames
 
 ## Preview link
-DEMO[https://rodionsav.github.io/todo-app-list/]
+[DEMO LINK](https://rodionsav.github.io/todo-app-list/)
