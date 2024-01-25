@@ -1,8 +1,6 @@
 # Description
 
-This is my online Todo App project that allows users to add, edit, toggle, and delete todos. Additionally, there's a feature to filter toggled todos. All changes are saved via the API."
-
-### Available Scripts
+This is my online Todo App project that allows users to add, edit, toggle, and delete todos. Additionally, there's a feature to filter toggled todos. All changes are saved via the API.
 
 # Technologies
 
