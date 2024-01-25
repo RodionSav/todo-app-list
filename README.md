@@ -1,9 +1,14 @@
-# React TypeScript Starter Pack
+# Description
 
-To use this template click `Use this template`
+This is my online Todo App project that allows users to add, edit, toggle, and delete todos. Additionally, there's a feature to filter toggled todos. All changes are saved via the API."
 
 ### Available Scripts
 
-`Deploy` - available to deploy your application to gh-pages
+# Technologies
 
-`SCSS Preprocessor` - available to write your styles with modern style language
+- React
+- React transition group
+- Typescript
+- SCSS with BEM
+- Bulma
+- Classnames
