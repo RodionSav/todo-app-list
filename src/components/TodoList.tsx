@@ -1,10 +1,11 @@
 import React from 'react';
+import {
+  CSSTransition,
+  TransitionGroup
+} from 'react-transition-group';
 import { Todo } from '../types/Todo';
 import { TodoItem } from './TodoItem';
 import { Status } from '../types/Status';
-import {
-  CSSTransition,
-  TransitionGroup } from 'react-transition-group';
 
 type Props = {
   todos: Todo[],
@@ -51,6 +52,5 @@ export const TodoList: React.FC<Props> = ({
         </CSSTransition>
       ))}
     </TransitionGroup>
-      
   );
 };
