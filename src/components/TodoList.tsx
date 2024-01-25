@@ -2,6 +2,9 @@ import React from 'react';
 import { Todo } from '../types/Todo';
 import { TodoItem } from './TodoItem';
 import { Status } from '../types/Status';
+import {
+  CSSTransition,
+  TransitionGroup } from 'react-transition-group';
 
 type Props = {
   todos: Todo[],
@@ -31,16 +34,23 @@ export const TodoList: React.FC<Props> = ({
   });
 
   return (
-    <>
+    <TransitionGroup>
       {filteredTodos.map(todo => (
-        <TodoItem
-          todo={todo}
+        <CSSTransition
           key={todo.id}
-          deleteTodo={deleteTodo}
-          onTodoEdit={onTodoEdit}
-          todoCompleteUpdate={todoCompleteUpdate}
-        />
+          timeout={300}
+          classNames="item"
+        >
+          <TodoItem
+            todo={todo}
+            key={todo.id}
+            deleteTodo={deleteTodo}
+            onTodoEdit={onTodoEdit}
+            todoCompleteUpdate={todoCompleteUpdate}
+          />
+        </CSSTransition>
       ))}
-    </>
+    </TransitionGroup>
+      
   );
 };
