@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   CSSTransition,
-  TransitionGroup
+  TransitionGroup,
 } from 'react-transition-group';
 import { Todo } from '../types/Todo';
 import { TodoItem } from './TodoItem';
