@@ -1,8 +1,10 @@
-# Description
+# Todo List App 
+
+## Description
 
 This is my online Todo App project that allows users to add, edit, toggle, and delete todos. Additionally, there's a feature to filter toggled todos. All changes are saved via the API.
 
-# Technologies
+## Technologies
 
 - React
 - React transition group
@@ -10,3 +12,6 @@ This is my online Todo App project that allows users to add, edit, toggle, and d
 - SCSS with BEM
 - Bulma
 - Classnames
+
+## Preview link
+DEMO[https://rodionsav.github.io/todo-app-list/]
