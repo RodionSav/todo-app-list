@@ -16,14 +16,16 @@ export const TodoFilter: React.FC<Props> = ({
   onFilterChange,
   deleteUncompletedtodos,
 }) => {
-  const completedTodos = todos.filter(todo => !todo.completed).length;
+  const uncompletedTodos = todos.filter(todo => !todo.completed).length;
+
+  const completedTodos = todos.filter(todo => todo.completed).length;
 
   return (
     <>
       <span className="todo-count" data-cy="TodosCounter">
-        { completedTodos === 1
-          ? `${completedTodos} item left`
-          : `${completedTodos} items left`}
+        { uncompletedTodos === 1
+          ? `${uncompletedTodos} item left`
+          : `${uncompletedTodos} items left`}
       </span>
 
       <nav className="filter" data-cy="Filter">
@@ -60,7 +62,9 @@ export const TodoFilter: React.FC<Props> = ({
 
       <button
         type="button"
-        className="todoapp__clear-completed"
+        className={cn('todoapp__clear-completed', {
+          'todoapp__clear-completed-hidden': completedTodos === 0
+        })}
         data-cy="ClearCompletedButton"
         onClick={deleteUncompletedtodos}
       >

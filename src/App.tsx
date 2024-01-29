@@ -22,6 +22,7 @@ export const App: React.FC = () => {
   ] = useState<ErrorMessageEnum | null>(null);
   const [hasMistake, setHasMistake] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     postService.getTodo(USER_ID)
@@ -64,17 +65,23 @@ export const App: React.FC = () => {
   };
 
   const handleTodoEdit = (todoId: number, newTitle: string) => {
+
+    setIsLoading(true);
+
     postService.updateTodo(todoId, {
       title: newTitle,
     })
-      .then((updatedTodo: Todo) => setTodos(prevTodos => prevTodos
-        .map(todo => (todo.id === updatedTodo.id
-          ? { ...todo, title: updatedTodo.title }
+      .then(() => setTodos(prevTodos => prevTodos
+        .map(todo => (todo.id === todoId
+          ? { ...todo, title: newTitle }
           : { ...todo }))))
       .catch(() => {
         setErrorMessage(ErrorMessageEnum.UpdateTodoError);
         setHasMistake(!hasMistake);
-      });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   };
 
   const handleTodoCompletedUpdate = (todoId: number, newCompleted: boolean) => {
@@ -116,7 +123,7 @@ export const App: React.FC = () => {
     const newTodo = {
       id: maxId + 1,
       userId: USER_ID,
-      title: query,
+      title: query.trim(),
       completed: false,
     };
 
@@ -145,7 +152,7 @@ export const App: React.FC = () => {
       .catch(() => {
         setErrorMessage(ErrorMessageEnum.DeleteTodoError);
         setHasMistake(!hasMistake);
-      });
+      })
   };
 
   const allTodoCompleted = todos.every(todo => todo.completed);
@@ -195,6 +202,7 @@ export const App: React.FC = () => {
           todoCompleteUpdate={handleTodoCompletedUpdate}
           activeFilter={activeFilter}
           onTodoEdit={handleTodoEdit}
+          isLoading={isLoading}
         />
 
         {todos.length > 0 && (
