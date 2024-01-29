@@ -112,7 +112,8 @@ export const TodoItem: React.FC<Props> = ({
             data-cy="TodoTitle"
             className="todo__title"
           >
-            {isLoading && todo.id === selectedTodoId ? <div className="loader" /> : todo.title}
+            {isLoading && todo.id === selectedTodoId
+            ? <div className="loader" /> : todo.title}
           </span>
           <button
             type="button"
