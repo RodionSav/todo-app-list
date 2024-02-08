@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const UserWarning: React.FC = () => (
   <section className="section">
     <p className="box is-size-3">

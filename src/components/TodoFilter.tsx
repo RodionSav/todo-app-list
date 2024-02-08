@@ -1,4 +1,3 @@
-import React from 'react';
 import cn from 'classnames';
 import { Todo } from '../types/Todo';
 import { Status } from '../types/Status';
