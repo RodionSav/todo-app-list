@@ -13,7 +13,6 @@ type Props = {
   todoCompleteUpdate: (todoId: number, newCompleted: boolean) => void,
   activeFilter: Status,
   onTodoEdit: (todoId: number, newTitle: string) => void,
-  isLoading: boolean,
 };
 
 export const TodoList: React.FC<Props> = ({
@@ -22,7 +21,6 @@ export const TodoList: React.FC<Props> = ({
   todoCompleteUpdate,
   activeFilter,
   onTodoEdit,
-  isLoading,
 }) => {
   const filteredTodos = todos.filter((todo) => {
     if (activeFilter === 'active') {
@@ -50,7 +48,6 @@ export const TodoList: React.FC<Props> = ({
             deleteTodo={deleteTodo}
             onTodoEdit={onTodoEdit}
             todoCompleteUpdate={todoCompleteUpdate}
-            isLoading={isLoading}
           />
         </CSSTransition>
       ))}

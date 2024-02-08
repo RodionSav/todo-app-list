@@ -22,7 +22,6 @@ export const App: React.FC = () => {
   ] = useState<ErrorMessageEnum | null>(null);
   const [hasMistake, setHasMistake] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     postService.getTodo(USER_ID)
@@ -65,23 +64,30 @@ export const App: React.FC = () => {
   };
 
   const handleTodoEdit = (todoId: number, newTitle: string) => {
+    const updatedTodos = todos.map(todo => {
+      return todo.id === todoId ? { ...todo, isLoading: true } : todo;
+    });
 
-    setIsLoading(true);
+    setTodos(updatedTodos);
 
-    postService.updateTodo(todoId, {
-      title: newTitle,
-    })
-      .then(() => setTodos(prevTodos => prevTodos
-        .map(todo => (todo.id === todoId
-          ? { ...todo, title: newTitle }
-          : { ...todo }))))
+    postService
+      .updateTodo(todoId, {
+        title: newTitle,
+      })
+      .then(() => setTodos(prevTodos => prevTodos.map(todo => {
+        return todo.id === todoId ? { ...todo, title: newTitle } : todo;
+      })))
       .catch(() => {
         setErrorMessage(ErrorMessageEnum.UpdateTodoError);
         setHasMistake(!hasMistake);
       })
       .finally(() => {
-        setIsLoading(false);
-      })
+        const updatedTodosWithoutLoading = todos.map(todo => {
+          return todo.id === todoId ? { ...todo, isLoading: false } : todo;
+        });
+
+        setTodos(updatedTodosWithoutLoading);
+      });
   };
 
   const handleTodoCompletedUpdate = (todoId: number, newCompleted: boolean) => {
@@ -152,7 +158,7 @@ export const App: React.FC = () => {
       .catch(() => {
         setErrorMessage(ErrorMessageEnum.DeleteTodoError);
         setHasMistake(!hasMistake);
-      })
+      });
   };
 
   const allTodoCompleted = todos.every(todo => todo.completed);
@@ -202,7 +208,6 @@ export const App: React.FC = () => {
           todoCompleteUpdate={handleTodoCompletedUpdate}
           activeFilter={activeFilter}
           onTodoEdit={handleTodoEdit}
-          isLoading={isLoading}
         />
 
         {todos.length > 0 && (

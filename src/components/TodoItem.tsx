@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
-import './../styles/todo.scss'
+import '../styles/todo.scss';
 import { Todo } from '../types/Todo';
 
 type Props = {
@@ -8,7 +8,6 @@ type Props = {
   deleteTodo: (todo: number) => void,
   onTodoEdit: (todoId: number, newTitle: string) => void,
   todoCompleteUpdate: (todoId: number, newCompleted: boolean) => void,
-  isLoading: boolean,
 };
 
 export const TodoItem: React.FC<Props> = ({
@@ -16,7 +15,6 @@ export const TodoItem: React.FC<Props> = ({
   deleteTodo,
   todoCompleteUpdate,
   onTodoEdit,
-  isLoading,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState('');
@@ -40,27 +38,20 @@ export const TodoItem: React.FC<Props> = ({
     if (newTodo) {
       setEditedTitle(newTodo.title);
       setSelectedTodoId(newTodo.id);
-      // console.log(selectedTodoId)
     }
-
   };
-
-  useEffect(() => {
-    console.log(selectedTodoId);
-  }, [selectedTodoId])
 
   const handleEditEnd = () => {
     setIsEditing(false);
 
     if (editedTitle.trim() && selectedTodoId) {
-      onTodoEdit(selectedTodoId, editedTitle)
+      onTodoEdit(selectedTodoId, editedTitle);
     } else {
-      deleteTodo(todo.id)
+      deleteTodo(todo.id);
     }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-
     if (event.key === 'Enter') {
       if (editedTitle.trim()) {
         event.preventDefault();
@@ -91,8 +82,8 @@ export const TodoItem: React.FC<Props> = ({
           checked={todo.completed}
           onChange={() => todoCompleteUpdate(todo.id, !todo.completed)}
         />
-
       </label>
+
       {isEditing ? (
         <form>
           <input
@@ -112,8 +103,8 @@ export const TodoItem: React.FC<Props> = ({
             data-cy="TodoTitle"
             className="todo__title"
           >
-            {isLoading && todo.id === selectedTodoId
-            ? <div className="loader" /> : todo.title}
+            {todo.isLoading
+              ? <div className="loader" /> : todo.title}
           </span>
           <button
             type="button"
@@ -127,4 +118,4 @@ export const TodoItem: React.FC<Props> = ({
       )}
     </div>
   );
-}
+};
