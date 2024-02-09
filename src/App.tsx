@@ -83,7 +83,7 @@ export const App: React.FC = () => {
       })
       .finally(() => {
         const updatedTodosWithoutLoading = todos.map(todo => {
-          return todo.id === todoId ? { ...todo, isLoading: false } : todo;
+          return todo.id === todoId ? { ...todo, title: newTitle, isLoading: false } : todo;
         });
 
         setTodos(updatedTodosWithoutLoading);
