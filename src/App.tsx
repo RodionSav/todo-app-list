@@ -152,6 +152,10 @@ export const App: React.FC = () => {
   };
 
   const handleDelete = (todoId: number) => {
+    setTodos(prevTodos => prevTodos.map(todo => {
+      return todo.id === todoId
+        ? { ...todo, title: 'Empty todo will be deleted' } : todo;
+    }));
     postService.deleteTodo(todoId)
       .then(() => setTodos(
         currentTodos => currentTodos.filter(todo => todo.id !== todoId),

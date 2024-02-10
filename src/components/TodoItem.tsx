@@ -94,6 +94,7 @@ export const TodoItem: React.FC<Props> = ({
             onChange={handleNewTodoTitle}
             onBlur={handleEditEnd}
             onKeyDown={handleKeyDown}
+            placeholder="Empty todo will be deleted"
           />
         </form>
       ) : (
@@ -101,7 +102,11 @@ export const TodoItem: React.FC<Props> = ({
           <span
             onDoubleClick={() => handleEditStart(todo)}
             data-cy="TodoTitle"
-            className="todo__title"
+            className={cn('todo__title',
+              {
+                'todo__title-field-placeholder':
+              todo.title === 'Empty todo will be deleted',
+              })}
           >
             {todo.isLoading
               ? <div className="loader" /> : todo.title}
